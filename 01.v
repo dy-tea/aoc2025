@@ -1,4 +1,5 @@
 import os
+import math
 
 // part 1
 lines := os.read_lines('input')!
@@ -27,17 +28,23 @@ for line in lines {
   dir := line[0]
   turns := line[1..].int()
   delta := turns * if dir == `L` { -1 } else { 1 }
-  for _ in 0..turns {
-    dial += delta
-    for dial > 99 {
-      dial -= 100
+  dial += delta
+  if delta < 0 {
+    if dial >= 0 {
+      if dial == 0 {
+        count++
+      }
+      continue
     }
-    for dial < 0 {
-      dial += 100
-    }
-    if dial == 0 {
+    if dial - delta != 0 {
       count++
     }
+    dial = math.abs(dial)
+    count += dial / 100
+    dial = (100 - dial % 100) % 100
+  } else {
+    count += dial / 100
+    dial %= 100
   }
 }
 println(count)
