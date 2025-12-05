@@ -1,4 +1,5 @@
 import os
+import arrays
 
 lines := os.read_lines('input')!
 mut sep_idx := 0
@@ -46,8 +47,5 @@ for rn in ranges {
 	}
 	merged << [nl, nr]
 }
-sum = 0
-for count in merged.map(|arr| arr[1] - arr[0] + 1) {
-  sum += count
-}
+sum = arrays.sum(merged.map(|arr| arr[1] - arr[0] + 1))!
 println(sum)
